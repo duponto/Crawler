@@ -63,7 +63,7 @@ namespace Crawler
             if (lastDate.Month < 12) CompleteRemainingYear(lastDate, averages);
             GenerateProjections(lastDate, averages);
             */
-            averages.ForEach(x => Console.WriteLine($"{x.Month}/{x.Year} - {x.Price}BRL"));
+            averages.ForEach(x => Console.WriteLine($"{x.Month}/{x.Year} - {x.Price} BRL"));
             Console.ReadKey();
         }
 
