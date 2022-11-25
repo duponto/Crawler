@@ -63,7 +63,7 @@
   <ItemGroup>
     <Compile Include="DTOs\IndexEuroDTO.cs" />
     <Compile Include="Models\IndexEuroDefault.cs" />
-    <Compile Include="CrawlerEuroMediaMensal.cs" />
+    <Compile Include="CrawlerEuroMensal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
