@@ -4,13 +4,15 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using System.Net;
 using Newtonsoft.Json;
+using Crawler.DTO;
+using Crawler.Models;
 
 namespace CrawlerItems
 {
     public class CrawlerIndexEuro
     {
 
-        public override void Main()
+        public void Main()
         {
             string urlBase = GetURLBase();
 
@@ -60,6 +62,9 @@ namespace CrawlerItems
 
             if (lastDate.Month < 12) CompleteRemainingYear(lastDate, averages);
             GenerateProjections(lastDate, averages);
+
+            averages.ForEach(x => Console.WriteLine($"{x.Month}/{x.Year} - {x.Price}"));
+            Console.ReadKey();
         }
 
         private static void GenerateProjections(IndexEuroDefault lastDate, List<IndexEuroDefault> finalProjections)
@@ -109,7 +114,7 @@ namespace CrawlerItems
             return defaultMonth;
         }
 
-        public override string GetURLBase()
+        public string GetURLBase()
         {
             DateTime dateNow = DateTime.Now;
             string now = dateNow.Month.ToString() + "-" + dateNow.Day.ToString() + "-" + dateNow.Year.ToString();

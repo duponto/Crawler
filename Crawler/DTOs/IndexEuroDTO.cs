@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrawlerEuro
+namespace Crawler.DTO
 {
     public class IndexEuroDTO
     {
