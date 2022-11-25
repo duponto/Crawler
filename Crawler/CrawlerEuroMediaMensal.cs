@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Crawler
 {
-    internal class Program
+    internal class CrawlerEuroMediaMensal
     {
         static void Main(string[] args)
         {
@@ -59,13 +59,18 @@ namespace Crawler
             });//last month, if it ain't complete.
 
             IndexEuroDefault lastDate = averages.LastOrDefault();
-
+            /*
             if (lastDate.Month < 12) CompleteRemainingYear(lastDate, averages);
             GenerateProjections(lastDate, averages);
-
+            */
             averages.ForEach(x => Console.WriteLine($"{x.Month}/{x.Year} - {x.Price}"));
             Console.ReadKey();
         }
+
+        /*
+         
+        Replicates last result found till the specified year
+        (gotta uncomment the if statement above)
 
         private static void GenerateProjections(IndexEuroDefault lastDate, List<IndexEuroDefault> finalProjections)
         {
@@ -84,6 +89,7 @@ namespace Crawler
                 }
             }
         }
+        */
 
         private static void CompleteRemainingYear(IndexEuroDefault lastDate, List<IndexEuroDefault> indexes)
         {
@@ -117,8 +123,12 @@ namespace Crawler
         public static string GetURLBase()
         {
             DateTime dateNow = DateTime.Now;
-            string now = dateNow.Month.ToString() + "-" + dateNow.Day.ToString() + "-" + dateNow.Year.ToString();
-            string baseURL = "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaPeriodo(moeda=@moeda,dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@moeda=%27EUR%27&@dataInicial=%2701-01-2022%27&@dataFinalCotacao=%27" + now + "%27&$format=json&$select=cotacaoVenda,dataHoraCotacao,tipoBoletim&$orderby=dataHoraCotacao%20asc";
+
+            string startDate = "01-01-2022";           
+            //string endDate = "MM-dd-YYYY";
+            string endDate = dateNow.Month.ToString() + "-" + dateNow.Day.ToString() + "-" + dateNow.Year.ToString(); //bascially now... 
+            // formats should be MM-dd-yyyy
+            string baseURL = "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaPeriodo(moeda=@moeda,dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@moeda=%27EUR%27&@dataInicial=%27"+ startDate + "%27&@dataFinalCotacao=%27" + endDate + "%27&$format=json&$select=cotacaoVenda,dataHoraCotacao,tipoBoletim&$orderby=dataHoraCotacao%20asc";
 
             return baseURL;
         }
