@@ -1,5 +1,7 @@
 # CrawlerEuroMensal
-Crawler que coleta a media do valor do euro <br>
-   <Strong>por enquanto a data esta sendo definida manualmente no codigo dentro de CrawlerEuroMensal.GetURLBase()</strong>
-   
-   
+Crawler que coleta a media do valor mensal do euro <br>
+   <Strong>Como usar</strong>
+   <br>Simples, basta adicionar as datas como argumentos no formato MM-DD-YYYY
+   <br>Como por exemplo:
+   <br>01-23-2022 10-30-2022
+   <br>dentro do codigo, os valores estarao encontrados dentro de averages
