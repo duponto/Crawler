@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Crawler
 {
-    internal class CrawlerEuroMediaMensal
+    internal class CrawlerEuroMensal
     {
         static void Main(string[] args)
         {
-            string urlBase = GetURLBase();
+            string urlBase = GetURLBase(args);
 
             WebClient webClient = new WebClient();
 
@@ -63,7 +63,7 @@ namespace Crawler
             if (lastDate.Month < 12) CompleteRemainingYear(lastDate, averages);
             GenerateProjections(lastDate, averages);
             */
-            averages.ForEach(x => Console.WriteLine($"{x.Month}/{x.Year} - {x.Price}"));
+            averages.ForEach(x => Console.WriteLine($"{x.Month}/{x.Year} - {x.Price}BRL"));
             Console.ReadKey();
         }
 
@@ -89,7 +89,6 @@ namespace Crawler
                 }
             }
         }
-        */
 
         private static void CompleteRemainingYear(IndexEuroDefault lastDate, List<IndexEuroDefault> indexes)
         {
@@ -105,7 +104,8 @@ namespace Crawler
                 indexes.Add(monthValue);
             }
         }
-
+        
+        */
         private static double BuildMonthlyAverage(List<IndexEuroDefault> values)
         {
             double average = 0;
@@ -120,13 +120,13 @@ namespace Crawler
             return defaultMonth;
         }
 
-        public static string GetURLBase()
+        public static string GetURLBase(string [] args)
         {
             DateTime dateNow = DateTime.Now;
 
-            string startDate = "01-01-2022";           
-            //string endDate = "MM-dd-YYYY";
-            string endDate = dateNow.Month.ToString() + "-" + dateNow.Day.ToString() + "-" + dateNow.Year.ToString(); //bascially now... 
+            string startDate = args[0];
+            string endDate   = args[1];
+            //string endDate = dateNow.Month.ToString() + "-" + dateNow.Day.ToString() + "-" + dateNow.Year.ToString(); //bascially now... 
             // formats should be MM-dd-yyyy
             string baseURL = "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaPeriodo(moeda=@moeda,dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@moeda=%27EUR%27&@dataInicial=%27"+ startDate + "%27&@dataFinalCotacao=%27" + endDate + "%27&$format=json&$select=cotacaoVenda,dataHoraCotacao,tipoBoletim&$orderby=dataHoraCotacao%20asc";
 
