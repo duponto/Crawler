@@ -67,6 +67,41 @@ namespace Crawler
             averages.ForEach(x => Console.WriteLine($"{x.Month}/{x.Year} - {x.Price} BRL"));
             Console.ReadKey();
         }
+        private static double BuildMonthlyAverage(List<IndexEuroDefault> values)
+        {
+            double average = 0;
+            int count = 0;
+            foreach (IndexEuroDefault day in values)
+            {
+                count++;
+                average += day.Price;
+            }
+            average = average / values.Count;
+            double defaultMonth = Math.Round(average, 2, MidpointRounding.ToEven);
+            return defaultMonth;
+        }
+
+        public static string GetURLBase(string [] args)
+        {
+            DateTime dateNow = DateTime.Now;
+            string startDate = null;
+            string endDate = null;
+            if (args[0] != null)
+            {
+                startDate = args[0];
+                endDate = args[1];
+            }
+            else
+            {
+                endDate = dateNow.Month.ToString() + "-" + dateNow.Day.ToString() + "-" + dateNow.Year.ToString();
+            }
+            //string endDate = dateNow.Month.ToString() + "-" + dateNow.Day.ToString() + "-" + dateNow.Year.ToString(); //bascially now... 
+            // formats should be MM-dd-yyyy
+            string baseURL = "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaPeriodo(moeda=@moeda,dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@moeda=%27EUR%27&@dataInicial=%27"+ startDate + "%27&@dataFinalCotacao=%27" + endDate + "%27&$format=json&$select=cotacaoVenda,dataHoraCotacao,tipoBoletim&$orderby=dataHoraCotacao%20asc";
+
+            return baseURL;
+        }
+
 
         /*
          
@@ -107,40 +142,5 @@ namespace Crawler
         }
         
         */
-        private static double BuildMonthlyAverage(List<IndexEuroDefault> values)
-        {
-            double average = 0;
-            int count = 0;
-            foreach (IndexEuroDefault day in values)
-            {
-                count++;
-                average += day.Price;
-            }
-            average = average / values.Count;
-            double defaultMonth = Math.Round(average, 2, MidpointRounding.ToEven);
-            return defaultMonth;
-        }
-
-        public static string GetURLBase(string [] args)
-        {
-            DateTime dateNow = DateTime.Now;
-            string startDate = null;
-            string endDate = null;
-            if (args[0] != null)
-            {
-                startDate = args[0];
-                endDate = args[1];
-            }
-            else
-            {
-                endDate = dateNow.Month.ToString() + "-" + dateNow.Day.ToString() + "-" + dateNow.Year.ToString();
-            }
-            //string endDate = dateNow.Month.ToString() + "-" + dateNow.Day.ToString() + "-" + dateNow.Year.ToString(); //bascially now... 
-            // formats should be MM-dd-yyyy
-            string baseURL = "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaPeriodo(moeda=@moeda,dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@moeda=%27EUR%27&@dataInicial=%27"+ startDate + "%27&@dataFinalCotacao=%27" + endDate + "%27&$format=json&$select=cotacaoVenda,dataHoraCotacao,tipoBoletim&$orderby=dataHoraCotacao%20asc";
-
-            return baseURL;
-        }
-
     }
 }
