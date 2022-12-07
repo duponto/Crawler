@@ -1,5 +1,6 @@
 # CrawlerEuroMensal
 Crawler que coleta a media do valor mensal do euro <br>
+   Crawler feito com webdriver para retorno json<br>
    <Strong>Como usar</strong>
    <br>Simples, basta adicionar as datas <strong>(MM-DD-YYYY)</strong> como argumentos, separadas por um spacing
    <br>Como por exemplo:
