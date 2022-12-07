@@ -14,6 +14,7 @@ namespace Crawler
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("comecou");
             string urlBase = GetURLBase(args);
 
             WebClient webClient = new WebClient();
@@ -123,9 +124,17 @@ namespace Crawler
         public static string GetURLBase(string [] args)
         {
             DateTime dateNow = DateTime.Now;
-
-            string startDate = args[0];
-            string endDate   = args[1];
+            string startDate = null;
+            string endDate = null;
+            if (args[0] != null)
+            {
+                startDate = args[0];
+                endDate = args[1];
+            }
+            else
+            {
+                endDate = dateNow.Month.ToString() + "-" + dateNow.Day.ToString() + "-" + dateNow.Year.ToString();
+            }
             //string endDate = dateNow.Month.ToString() + "-" + dateNow.Day.ToString() + "-" + dateNow.Year.ToString(); //bascially now... 
             // formats should be MM-dd-yyyy
             string baseURL = "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaPeriodo(moeda=@moeda,dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@moeda=%27EUR%27&@dataInicial=%27"+ startDate + "%27&@dataFinalCotacao=%27" + endDate + "%27&$format=json&$select=cotacaoVenda,dataHoraCotacao,tipoBoletim&$orderby=dataHoraCotacao%20asc";
